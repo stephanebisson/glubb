@@ -1,4 +1,6 @@
 glubb
 =====
 
-not sure yet
+Some kind of twitterishy-thingy
+
+checking out meteor

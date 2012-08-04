@@ -1,0 +1,35 @@
+<head>
+  <title>glubb</title>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span4">
+				{{> add}}
+			</div>
+			<div class="span4">
+				{{> view}}
+			</div>
+		</div>
+	</div>
+</body>
+
+<template name="add">
+	<h2>glubb<span class="blue">add</span>erlitz</h2>
+	<form class="well">
+		<textarea class="span12" placeholder="new glubb here" id="theText" rows="4"/>
+		<input type="button" value="emit" id="add" class="btn" />
+	</form>
+</template>
+
+<template name="view">
+	<h2><span class="blue">near</span>oglubbs</h2>
+	{{#each messages}}
+		<div class="well">
+			<p><i class="icon-user" />&nbsp;&nbsp;{{text}}</p>
+			<p><i class="icon-time" />&nbsp;&nbsp;{{format timestamp}}</p>
+			<p><i class="icon-globe"/>&nbsp;&nbsp;{{distance loc}} km away</p>
+		</div>
+	{{/each}}
+</template>
