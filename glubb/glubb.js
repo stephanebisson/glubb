@@ -10,9 +10,21 @@ if (Meteor.is_client) {
     window.navigator.geolocation.getCurrentPosition(receiveLocation);
     window.navigator.geolocation.watchPosition(receiveLocation);
     
+    var isSuper = function(){
+        return window.location.search === '?super';
+    };
+    
     Meteor.autosubscribe(function(){
-        Meteor.subscribe('messages', Session.get('loc'));
-    });
+        Meteor.subscribe('messages', Session.get('loc'), isSuper());
+    });    
+    
+    Template.main.superMode = function(){
+        return isSuper();
+    };
+    
+    Template.super.messages = function(){
+        return messages.find({});
+    };
 
     Template.add.events = {
         'click #add': function() {
@@ -55,6 +67,10 @@ if (Meteor.is_client) {
         return messages.find({});
     };
 
+    Template.view.count = function() {
+        return isSuper() ? messages.find({}).count() : '';
+    };
+
     Template.view.format = function(d) {
         return new Date(d).toLocaleString();
     };
@@ -66,6 +82,19 @@ if (Meteor.is_client) {
         }
         return '?';
     };
+    
+    Meteor.startup(function(){
+        if (isSuper()){
+            var mapOptions = {
+	          center: new google.maps.LatLng(104, 31),
+	          zoom: 3,
+	          mapTypeId: google.maps.MapTypeId.ROADMAP
+	        };
+	        var map = new google.maps.Map(document.getElementById("map_canvas"),
+	            mapOptions);
+        }
+    });
+    
 }
 
 if (Meteor.is_server) {
@@ -103,8 +132,13 @@ if (Meteor.is_server) {
     Meteor.startup(function(){
         //dummyData();
 
-        Meteor.publish('messages', function(where){
-            return messages.find({loc: {$near: where}}, {limit: 3});
+        Meteor.publish('messages', function(where, isSuper){
+            if (isSuper) {
+                return messages.find({}, {sort: {timestamp: -1}});
+            }
+            else {
+                return messages.find({loc: {$near: where}}, {limit: 3});
+            }
         });
 
         getMongoCollectionDb(messages, function(db){
