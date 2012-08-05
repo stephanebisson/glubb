@@ -2,9 +2,13 @@ if (Meteor.is_client) {
     var messages = new Meteor.Collection('messages');
     
     Session.set('loc', [0,0]);
-    window.navigator.geolocation.watchPosition(function(pos) {
+    
+    var receiveLocation = function(pos) {
         Session.set('loc', [pos.coords.longitude, pos.coords.latitude]);
-    });
+    };
+    
+    window.navigator.geolocation.getCurrentPosition(receiveLocation);
+    window.navigator.geolocation.watchPosition(receiveLocation);
     
     Meteor.autosubscribe(function(){
         Meteor.subscribe('messages', Session.get('loc'));
@@ -23,9 +27,13 @@ if (Meteor.is_client) {
         }
     };
     
-    Template.add.locEnabled = function(b){
+    var locSet = function(){
         var loc = Session.get('loc');
-        return (loc && loc[0] != 0 && loc[1] != 0).toString() == b;
+        return (loc && loc[0] != 0 && loc[1] != 0);
+    };
+    
+    Template.add.locEnabled = function(b){
+        return locSet().toString() == b;
     };
 
     var today = function() {
@@ -52,8 +60,8 @@ if (Meteor.is_client) {
     };
 
     Template.view.distance = function(loc) {
-        var myloc = Session.get('loc');
-        if (myloc) {
+        if (locSet()) {
+            var myloc = Session.get('loc');
             return distance(loc, myloc);
         }
         return '?';
