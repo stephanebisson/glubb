@@ -33,7 +33,7 @@ if (Meteor.is_client) {
     };
     
     Template.add.locEnabled = function(b){
-        return locSet().toString() == b;
+        return locSet();
     };
 
     var today = function() {

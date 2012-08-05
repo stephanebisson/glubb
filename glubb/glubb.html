@@ -21,13 +21,12 @@
 
 <template name="add">
 	<h2>glubb<span class="blue">add</span>erlitz</h2>
-	{{#if locEnabled true }}
+	{{#if locEnabled }}
 		<form class="well">
 			<textarea class="span12" placeholder="new glubb here" id="theText" rows="4"/>
 			<input type="button" value="emit" id="add" class="btn" />
 		</form>
-	{{/if }}
-	{{#if locEnabled false }}
+	{{else}}
 	<div class="well">
 		Geolocation must be enabled in order to post to glubb.
 	</div>
