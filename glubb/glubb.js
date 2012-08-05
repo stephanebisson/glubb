@@ -83,15 +83,18 @@ if (Meteor.is_client) {
         return '?';
     };
     
+    var map;
+    
     Meteor.startup(function(){
         if (isSuper()){
+            var myloc = Session.get('loc');
             var mapOptions = {
-	          center: new google.maps.LatLng(104, 31),
-	          zoom: 3,
+	          center: new google.maps.LatLng(myloc[1], myloc[0]),
+	          zoom: 6,
 	          mapTypeId: google.maps.MapTypeId.ROADMAP
 	        };
-	        var map = new google.maps.Map(document.getElementById("map_canvas"),
-	            mapOptions);
+            map = new google.maps.Map(document.getElementById("map_canvas"),
+                mapOptions);
         }
     });
     
