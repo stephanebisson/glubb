@@ -23,9 +23,9 @@ if (Meteor.is_client) {
         }
     };
     
-    Template.add.locEnabled = function(){
+    Template.add.locEnabled = function(b){
         var loc = Session.get('loc');
-        return (loc && loc[0] != 0 && loc[1] != 0);
+        return (loc && loc[0] != 0 && loc[1] != 0).toString() == b;
     };
 
     var today = function() {
