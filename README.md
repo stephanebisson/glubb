@@ -5,7 +5,6 @@ glubb allows you to communicate with the crowd. You can share your thoughts and 
 
 Try it for free [here](glubb.meteor.com)
 
----
 
 ## For example
 
@@ -17,5 +16,4 @@ Try it for free [here](glubb.meteor.com)
 
 5 minutes ago, 200 meters away, the owner of that fancy french bakery shared "closing in 30 minutes; all cakes are 60% off"
 
----
 
