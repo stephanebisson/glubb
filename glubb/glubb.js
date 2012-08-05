@@ -1,6 +1,6 @@
 if (Meteor.is_client) {
     var messages = new Meteor.Collection('messages');
-
+    
     Session.set('loc', [0,0]);
     window.navigator.geolocation.watchPosition(function(pos) {
         Session.set('loc', [pos.coords.longitude, pos.coords.latitude]);
@@ -21,6 +21,11 @@ if (Meteor.is_client) {
             });
             textarea.val('');
         }
+    };
+    
+    Template.add.locEnabled = function(){
+        var loc = Session.get('loc');
+        return (loc && loc[0] != 0 && loc[1] != 0);
     };
 
     var today = function() {

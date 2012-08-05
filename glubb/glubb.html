@@ -3,6 +3,10 @@
 </head>
 
 <body>
+	{{> main}}
+</body>
+
+<template name="main">
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span4">
@@ -11,16 +15,18 @@
 			<div class="span4">
 				{{> view}}
 			</div>
-		</div>
+		</div>	
 	</div>
-</body>
+</template>
 
 <template name="add">
 	<h2>glubb<span class="blue">add</span>erlitz</h2>
-	<form class="well">
-		<textarea class="span12" placeholder="new glubb here" id="theText" rows="4"/>
-		<input type="button" value="emit" id="add" class="btn" />
-	</form>
+	{{#if locEnabled }}
+		<form class="well">
+			<textarea class="span12" placeholder="new glubb here" id="theText" rows="4"/>
+			<input type="button" value="emit" id="add" class="btn" />
+		</form>
+	{{/if }}
 </template>
 
 <template name="view">
