@@ -3,7 +3,7 @@ glubb
 
 glubb allows you to communicate with the crowd. You can share your thoughts and listen to what the people around you are saying. It's anonymus and fast.
 
-Try it for free [here](glubb.meteor.com)
+Try it for free [here](http://glubb.meteor.com)
 
 
 ## For example
