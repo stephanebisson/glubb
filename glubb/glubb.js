@@ -7,8 +7,12 @@ if (Meteor.is_client) {
         Session.set('loc', [pos.coords.longitude, pos.coords.latitude]);
     };
     
-    window.navigator.geolocation.getCurrentPosition(receiveLocation);
-    window.navigator.geolocation.watchPosition(receiveLocation);
+    var noop = function(){};
+    
+    var opts = { enableHighAccuracy: true };
+    
+    window.navigator.geolocation.getCurrentPosition(receiveLocation, noop, opts);
+    window.navigator.geolocation.watchPosition(receiveLocation, noop, opts);
     
     var isSuper = function(){
         return window.location.search === '?super';
