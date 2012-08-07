@@ -18,8 +18,12 @@ if (Meteor.is_client) {
         Meteor.subscribe('messages', Session.get('loc'), isSuper());
     });    
     
-    Template.main.superMode = function(){
-        return isSuper();
+    Template.main.route = function(name){
+        return window.location.search === ('?' + name);
+    };
+    
+    Template.main.defaultRoute = function(){
+        return !window.location.search;
     };
     
     Template.super.messages = function(){
