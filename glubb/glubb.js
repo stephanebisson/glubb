@@ -95,14 +95,39 @@ if (Meteor.is_client) {
     
     Meteor.startup(function(){
         if (isSuper()){
-            var myloc = Session.get('loc');
+            var locFromSession = Session.get('loc');
+            var loc = new google.maps.LatLng(locFromSession[1], locFromSession[0])
             var mapOptions = {
-	          center: new google.maps.LatLng(myloc[1], myloc[0]),
-	          zoom: 6,
+	          center: loc,
+	          zoom: 3,
 	          mapTypeId: google.maps.MapTypeId.ROADMAP
 	        };
             map = new google.maps.Map(document.getElementById("map_canvas"),
                 mapOptions);
+                
+            var marker = new google.maps.Marker({
+                position: loc,
+                title:"here and now",
+                map: map
+            });
+            
+            var allMarkers = [];
+            var updateMarkers = function(){
+                var ctx = new Meteor.deps.Context();
+                ctx.on_invalidate(updateMarkers);
+                ctx.run(function(){
+                    _.each(allMarkers, function(m){m.setMap(null);});
+                    _.each(messages.find({}).fetch(), 
+                    function(msg){
+                        allMarkers.push(new google.maps.Marker({
+                            position: new google.maps.LatLng(msg.loc[1], msg.loc[0]),
+                            title:msg.text,
+                            map: map
+                        }));
+                    });
+                });
+            };
+            updateMarkers();
         }
     });
     
