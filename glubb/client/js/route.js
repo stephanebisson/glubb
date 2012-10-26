@@ -4,6 +4,5 @@ $(window).bind('hashchange', function() {
 });
 
 Handlebars.registerHelper("currentView", function(options) {
-    var templateFunction = Template[Session.get('currentRoute')];
-    return (templateFunction || Template.welcome)();
+    return (Template[Session.get('currentRoute')] || Template.welcome)();
 });

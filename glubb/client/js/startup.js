@@ -5,7 +5,6 @@ Meteor.autosubscribe(function() {
 });
 
 Template.nav.isActive = function(route){
-    console.log('isActive', route);
     return route === Session.get('currentRoute') ? 'active' : '';
 };
 
@@ -52,11 +51,7 @@ Template.view.messages = function() {
     return messages.find({});
 };
 
-Template.view.count = function() {
-    return 12; //isSuper() ? messages.find({}).count() : '';
-};
-
-Template.view.format = function(d) {
+Template.view.timeAgo = function(d) {
     return new Date(d).toLocaleString();
 };
 
@@ -68,42 +63,39 @@ Template.view.distance = function(loc) {
     return '?';
 };
 
-var map;
+Template.map.rendered = function(){
+    console.log('adding the map');
+    var locFromSession = Session.get('loc');
+    var loc = new google.maps.LatLng(locFromSession[1], locFromSession[0])
+    var mapOptions = {
+        center: loc,
+        zoom: 3,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
-Meteor.startup(function() {
-    if (false) {
-        var locFromSession = Session.get('loc');
-        var loc = new google.maps.LatLng(locFromSession[1], locFromSession[0])
-        var mapOptions = {
-            center: loc,
-            zoom: 3,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    var marker = new google.maps.Marker({
+        position: loc,
+        title: "here and now",
+        map: map
+    });
 
-        var marker = new google.maps.Marker({
-            position: loc,
-            title: "here and now",
-            map: map
-        });
-
-        var allMarkers = [];
-        var updateMarkers = function() {
-                var ctx = new Meteor.deps.Context();
-                ctx.on_invalidate(updateMarkers);
-                ctx.run(function() {
-                    _.each(allMarkers, function(m) {
-                        m.setMap(null);
-                    });
-                    _.each(messages.find({}).fetch(), function(msg) {
-                        allMarkers.push(new google.maps.Marker({
-                            position: new google.maps.LatLng(msg.loc[1], msg.loc[0]),
-                            title: msg.text,
-                            map: map
-                        }));
-                    });
+    var allMarkers = [];
+    var updateMarkers = function() {
+            var ctx = new Meteor.deps.Context();
+            ctx.on_invalidate(updateMarkers);
+            ctx.run(function() {
+                _.each(allMarkers, function(m) {
+                    m.setMap(null);
                 });
-            };
-        updateMarkers();
-    }
-});
+                _.each(messages.find({}).fetch(), function(msg) {
+                    allMarkers.push(new google.maps.Marker({
+                        position: new google.maps.LatLng(msg.loc[1], msg.loc[0]),
+                        title: msg.text,
+                        map: map
+                    }));
+                });
+            });
+        };
+    updateMarkers();
+};
