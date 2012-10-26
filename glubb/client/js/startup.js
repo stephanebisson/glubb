@@ -64,7 +64,6 @@ Template.view.distance = function(loc) {
 };
 
 Template.map.rendered = function(){
-    console.log('adding the map');
     var locFromSession = Session.get('loc');
     var loc = new google.maps.LatLng(locFromSession[1], locFromSession[0])
     var mapOptions = {
@@ -72,7 +71,7 @@ Template.map.rendered = function(){
         zoom: 3,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
     var marker = new google.maps.Marker({
         position: loc,
