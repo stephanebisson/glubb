@@ -1,4 +1,4 @@
-glubb
+glubb  [![Build Status](https://secure.travis-ci.org/stephanebisson/glubb.png?branch=master)](http://travis-ci.org/stephanebisson/glubb)
 =====
 
 glubb allows you to communicate with the crowd. You can share your thoughts and listen to what the people around you are saying. It's anonymus and fast.
