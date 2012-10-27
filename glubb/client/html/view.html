@@ -23,17 +23,16 @@
 	      <li class='{{isActive "add"}} '><a href="#add"><span class="icon-edit"></span> add</a></li>
 	      <li class='{{isActive "view"}}'><a href="#view"><span class="icon-list"></span> view</a></li>
 	      <li class='{{isActive "map"}}'><a href="#map"><span class="icon-globe"></span> map</a></li>
+		  <li><a>{{loginButtons}}</a></li>
 	    </ul>
 	  </div>
 	</div>
 </template>
 
 <template name="welcome">
-	<div class="container-fluid">
-		<div class="well">
-			<h1>g l u b b</h1>
-			welcome page
-		</div>
+	<div class="well">
+		<h1>g l u b b</h1>
+		welcome page
 	</div>
 </template>
 
@@ -58,9 +57,12 @@
 <template name="view">
 	{{#each messages}}
 		<div class="well">
-			<p><i class="icon-user" />&nbsp;&nbsp;{{text}}</p>
-			<p><i class="icon-time" />&nbsp;&nbsp;{{timeAgo timestamp}}</p>
-			<p><i class="icon-globe"/>&nbsp;&nbsp;{{distance loc}} km away</p>
+			<div class="row-fluid">{{text}}</div>
+			<div class="row-fluid">
+				<div><i class="icon-user" />&nbsp;&nbsp;{{userOrNot user}}</div>
+				<div><i class="icon-time" />&nbsp;&nbsp;{{timeAgo timestamp}}</div>
+				<div><i class="icon-globe" />&nbsp;&nbsp;{{distance loc}} km away</div>
+			</div>
 		</div>
 	{{/each}}
 </template>

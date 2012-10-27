@@ -1,6 +1,6 @@
 Meteor.startup(function(){
     var messages = new Meteor.Collection('messages');
-    dummyData(messages);
+    //dummyData(messages);
     ensure2dindex(messages);
     Meteor.publish('messages', function(where, isSuper){
         if (isSuper) {

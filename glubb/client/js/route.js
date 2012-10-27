@@ -9,3 +9,7 @@ Handlebars.registerHelper("currentView", function(options) {
 });
 
 Meteor.startup(updateLocationInSession);
+
+function navigate(hash){
+    window.location.hash = hash;
+}

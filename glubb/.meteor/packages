@@ -6,3 +6,10 @@
 bootstrap
 insecure
 jquery
+accounts-base
+accounts-github
+accounts-ui
+accounts-google
+accounts-facebook
+accounts-twitter
+accounts-weibo
