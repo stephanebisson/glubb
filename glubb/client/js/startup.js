@@ -8,6 +8,16 @@ Template.nav.isActive = function(route){
     return route === Session.get('currentRoute') ? 'active' : '';
 };
 
+Template.status.dead = function(){
+    return !Meteor.status().connected;
+};
+
+Template.status.events = {
+    'click #reconnect' : function(){
+        Meteor.reconnect();
+    }
+};
+
 Template.add.events = {
     'click #add': function() {
         var textarea = $('#theText');
@@ -20,6 +30,9 @@ Template.add.events = {
             timestamp: Date.now()
         });
         textarea.val('');
+    },
+    'click #enableGeolocation' : function(){
+        initGeolocation();
     }
 };
 
@@ -98,3 +111,7 @@ Template.map.rendered = function(){
         };
     updateMarkers();
 };
+
+Meteor.startup(function(){
+    
+});

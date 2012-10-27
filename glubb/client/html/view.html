@@ -2,8 +2,17 @@
 <template name="main">
 	<div class="container-fluid">
 		{{> nav}}
+		{{> status}}
 		{{#currentView}}{{/currentView}}
 	</div>
+</template>
+
+<template name="status">
+	{{#if dead}}
+	<div class="alert">
+		<strong>Oups!</strong> communication breakdown :( <a class="pull-right" id="reconnect">try to reconnect now</a>
+	</div>
+	{{/if}}
 </template>
 
 <template name="nav">
@@ -11,9 +20,9 @@
 	  <div class="navbar-inner">
 	    <!-- <a class="brand" href="#">G L U B B</a> -->
 	    <ul class="nav">
-	      <li class='{{isActive "add"}} '><a href="#add"><span class="icon-edit"></span> a d d</a></li>
-	      <li class='{{isActive "view"}}'><a href="#view"><span class="icon-list"></span> v i e w</a></li>
-	      <li class='{{isActive "map"}}'><a href="#map"><span class="icon-globe"></span> m a p</a></li>
+	      <li class='{{isActive "add"}} '><a href="#add"><span class="icon-edit"></span> add</a></li>
+	      <li class='{{isActive "view"}}'><a href="#view"><span class="icon-list"></span> view</a></li>
+	      <li class='{{isActive "map"}}'><a href="#map"><span class="icon-globe"></span> map</a></li>
 	    </ul>
 	  </div>
 	</div>
@@ -21,7 +30,7 @@
 
 <template name="welcome">
 	<div class="container-fluid">
-		<div class="span11 well">
+		<div class="well">
 			<h1>g l u b b</h1>
 			welcome page
 		</div>
@@ -41,7 +50,7 @@
 	{{else}}
 	<div class="well">
 		Geolocation must be enabled in order to use glubb.<br/>
-		<span id="enableGeolocation" class="btn btn-primary">Enable geolocation</span>
+		<a id="enableGeolocation" class="btn btn-primary">Enable geolocation</a>
 	</div>
 	{{/if }}
 </template>
