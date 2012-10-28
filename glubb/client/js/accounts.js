@@ -1,8 +1,8 @@
-Accounts.loginServiceConfiguration.insert({
-  service: "facebook",
-  clientId: "",
-  secret: ""
-});
+// Accounts.loginServiceConfiguration.insert({
+//   service: "facebook",
+//   clientId: "",
+//   secret: ""
+// });
 
 Accounts.loginServiceConfiguration.insert({
   service: "github",
@@ -22,9 +22,9 @@ Accounts.loginServiceConfiguration.insert({
   secret: "0K9uCwJunSdB2hZAkvAVre6RsnZlv65TNs6nrtsMk"
 });
 
-Accounts.loginServiceConfiguration.insert({
-  service: "weibo",
-  clientId: "4259203338",
-  secret: "c0debf0491b7ac2e2eef0354000171b7"
-});
+// Accounts.loginServiceConfiguration.insert({
+//   service: "weibo",
+//   clientId: "4259203338",
+//   secret: "c0debf0491b7ac2e2eef0354000171b7"
+// });
 
